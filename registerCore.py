@@ -11,7 +11,7 @@ class registerCore(cSimpleModule):
             # need to send to ourselves as well if pid!=self.getIndex():
             destProcess=self.networkModule.getSubmodule("procs",pid).getSubmodule("core");
             delay=random.randint(0, self.networkModule.par("maxDelay").intValue())
-            self.sendDirect(msg.dup(), SimTime(delay), SimTime(0.0),  destProcess, "remoteIn")
+            self.sendDirect(msg, SimTime(delay), SimTime(0.0),  destProcess, "remoteIn")
 
     def initialize(self):
       #  print("in initialize for core id="+str(self.getParentModule().getIndex()))
