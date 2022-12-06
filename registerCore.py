@@ -68,7 +68,7 @@ class registerCore(cSimpleModule):
                     self.reading=False
                     self.send(AckReadReqMaj(self.getParentModule().getSubmodule("iface").rreqsn, maxwsn, value).dup(),"msgToIface")
         
-             
+
         if msgType=="ackwrite":
             # collect responses 
             if msg.wsn==self.getParentModule().getSubmodule("iface").wsnw and self.writing: # do not process if this is a stale ack    
@@ -79,3 +79,4 @@ class registerCore(cSimpleModule):
         
         #EV<< "At "<<simTime()<<" process "<< self.getIndex()<<" received message "<<msg<<" from process "<< msg.getSenderModule().getIndex()
       #  self.send(msg, 'out')
+        self.delete(msg)                  
