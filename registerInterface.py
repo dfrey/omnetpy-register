@@ -67,10 +67,10 @@ class registerInterface(cSimpleModule):
         
         self.send(m, "bcastToCore")
     #    print("write interface waiting")
-     #   EV<<"write interface waiting"
-#        maj=self.receive()
+        EV<<"write interface waiting"
+        maj=self.receive()
 #        self.delete( maj)
-        maj=None
+#        maj=None
    #     EV<<"write interface received"<<maj
 #         if maj.getName=="ackwritemaj" and maj.wsn==self.wsnw: 
 #             EV<< "At "<<simTime()<<" process "<< self.getParentModule().getIndex()<<" received majority for write "<<self.wsnw
