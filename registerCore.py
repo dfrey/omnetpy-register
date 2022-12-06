@@ -51,11 +51,11 @@ class registerCore(cSimpleModule):
                 self.mywsn=msg.wsn
                 self.myreg=msg.value
             self.sendDirect(AckWrite(msg.wsn), msg.getSenderModule(),"remoteIn")    
-            self.delete(msg) # delete because it was broadcast
+#            self.delete(msg) # delete because it was broadcast
             
         if msgType=="readreq":
             self.sendDirect(AckReadReq(msg.rsn, self.mywsn, self.myreg), msg.getSenderModule(),"remoteIn")    
-            self.delete(msg) # delete because it was broadcast
+#            self.delete(msg) # delete because it was broadcast
             print(str(self.getParentModule().getIndex())+" deleted readreq")
             
         if msgType=="ackreadreq":
