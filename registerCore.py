@@ -51,10 +51,12 @@ class registerCore(cSimpleModule):
                 self.mywsn=msg.wsn
                 self.myreg=msg.value
             self.sendDirect(AckWrite(msg.wsn), msg.getSenderModule(),"remoteIn")    
-                        
+            self.delete(msg) # delete because it was broadcast
+            
         if msgType=="readreq":
             self.sendDirect(AckReadReq(msg.rsn, self.mywsn, self.myreg), msg.getSenderModule(),"remoteIn")    
-    
+            self.delete(msg) # delete because it was broadcast
+            
         if msgType=="ackreadreq":
             if msg.rsn==self.getParentModule().getSubmodule("iface").rreqsn and self.reading: # do not process if this is a stale ack    
                 self.ackreadreqmsgs[msg.wsn]=msg.regvalue
@@ -75,5 +77,3 @@ class registerCore(cSimpleModule):
         
         #EV<< "At "<<simTime()<<" process "<< self.getIndex()<<" received message "<<msg<<" from process "<< msg.getSenderModule().getIndex()
       #  self.send(msg, 'out')
-        self.delete (msg)
-        msg=None
