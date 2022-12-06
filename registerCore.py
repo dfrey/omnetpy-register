@@ -56,10 +56,10 @@ class registerCore(cSimpleModule):
         if msgType=="readreq":
             self.sendDirect(AckReadReq(msg.rsn, self.mywsn, self.myreg), msg.getSenderModule(),"remoteIn")    
             self.delete(msg) # delete because it was broadcast
-            print("deleted readreq")
+            print(str(self.getParentModule().getIndex())+" deleted readreq")
             
         if msgType=="ackreadreq":
-            print("processing ackreadreq")
+            print(str(self.getParentModule().getIndex())+"processing ackreadreq")
             if msg.rsn==self.getParentModule().getSubmodule("iface").rreqsn and self.reading: # do not process if this is a stale ack    
                 self.ackreadreqmsgs[msg.wsn]=msg.regvalue
                 if (len(self.ackreadreqmsgs)>self.n/2): # we have a majority
