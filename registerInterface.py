@@ -65,7 +65,7 @@ class registerInterface(cSimpleModule):
 #        m1=m.dup()
     #    print("created m1 "+str(type(m1)))
         
-        self.send(m.dup(), "bcastToCore")
+        self.send(m, "bcastToCore")
     #    print("write interface waiting")
         EV<<"write interface waiting"
         maj=self.receive()
@@ -79,7 +79,7 @@ class registerInterface(cSimpleModule):
 
     def read(self):
         self.rreqsn=self.rreqsn+1
-        self.send(ReadOperation(self.rreqsn).dup(),"bcastToCore")
+        self.send(ReadOperation(self.rreqsn),"bcastToCore")
 #         EV<<"read interface waiting"   
         highestAckReadReq=self.receive()
 #         EV<<"read interface received"<<maj

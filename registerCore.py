@@ -50,11 +50,11 @@ class registerCore(cSimpleModule):
             if msg.wsn>=self.mywsn:
                 self.mywsn=msg.wsn
                 self.myreg=msg.value
-            self.sendDirect(AckWrite(msg.wsn).dup(), msg.getSenderModule(),"remoteIn")    
+            self.sendDirect(AckWrite(msg.wsn), msg.getSenderModule(),"remoteIn")    
 #            self.delete(msg) # delete because it was broadcast
             
         if msgType=="readreq":
-            self.sendDirect(AckReadReq(msg.rsn, self.mywsn, self.myreg).dup(), msg.getSenderModule(),"remoteIn")    
+            self.sendDirect(AckReadReq(msg.rsn, self.mywsn, self.myreg), msg.getSenderModule(),"remoteIn")    
 #            self.delete(msg) # delete because it was broadcast
 #            print(str(self.getParentModule().getIndex())+" deleted readreq")
             
@@ -66,7 +66,7 @@ class registerCore(cSimpleModule):
                     maxwsn=max(sn for sn in self.ackreadreqmsgs.keys())
                     value=self.ackreadreqmsgs[maxwsn]
                     self.reading=False
-                    self.send(AckReadReqMaj(self.getParentModule().getSubmodule("iface").rreqsn, maxwsn, value).dup(),"msgToIface")
+                    self.send(AckReadReqMaj(self.getParentModule().getSubmodule("iface").rreqsn, maxwsn, value),"msgToIface")
         
 
         if msgType=="ackwrite":
@@ -75,7 +75,7 @@ class registerCore(cSimpleModule):
                 self.ackwritemsgs.append(msg.wsn)
                 if (len(self.ackwritemsgs)>self.n/2): # we have a majority
                     self.writing=False
-                    self.send(AckWriteMaj(msg.wsn).dup(),"msgToIface")
+                    self.send(AckWriteMaj(msg.wsn),"msgToIface")
         
         #EV<< "At "<<simTime()<<" process "<< self.getIndex()<<" received message "<<msg<<" from process "<< msg.getSenderModule().getIndex()
       #  self.send(msg, 'out')
