@@ -79,4 +79,4 @@ class registerCore(cSimpleModule):
         
         #EV<< "At "<<simTime()<<" process "<< self.getIndex()<<" received message "<<msg<<" from process "<< msg.getSenderModule().getIndex()
       #  self.send(msg, 'out')
-      #  self.delete(msg)                  
+        elf.delete(msg)                  
