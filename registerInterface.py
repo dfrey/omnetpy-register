@@ -28,6 +28,7 @@ class registerInterface(cSimpleModule):
        # print("after print getindex")
         if self.getParentModule().getIndex() ==0: # I am the writer
         #    print("before write")
+            # comment
             self.wait(10)
             self.write(1)
             self.wait(10)
