@@ -18,6 +18,7 @@ class registerCore(cSimpleModule):
         self.networkModule=self.getParentModule().getParentModule()
         self.n=int(self.networkModule.par("numProc").intValue())
         self.ackwritemsgs=[]
+        self.ackreadreqmsgslist=[]        
         self.ackreadreqmsgs={}
         self.writing=False
         self.reading=False
@@ -62,7 +63,8 @@ class registerCore(cSimpleModule):
 #            print(str(self.getParentModule().getIndex())+"processing ackreadreq")
             if msg.rsn==self.getParentModule().getSubmodule("iface").rreqsn and self.reading: # do not process if this is a stale ack    
                 self.ackreadreqmsgs[msg.wsn]=msg.regvalue
-                if (len(self.ackreadreqmsgs)>self.n/2): # we have a majority
+                self.ackreadreqmsgslist.append(msg.wsn)
+                if (len(self.ackreadreqmsgslist)>self.n/2): # we have a majority
                     maxwsn=max(sn for sn in self.ackreadreqmsgs.keys())
                     value=self.ackreadreqmsgs[maxwsn]
                     self.reading=False
